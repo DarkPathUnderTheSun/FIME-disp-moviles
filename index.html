@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <meta name="viewport"
+    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <link rel="stylesheet" href="assets/style.css">
+
+</head>
+
+<body>
+
+
+  <div class="login" style="display:block;" id="login">
+    <h1>Log In</h1>
+    <form id="userInfo" style="display:block;">
+      <input type="text" name="u" placeholder="Username" required="required" />
+      <input type="password" name="p" placeholder="Password" required="required" />
+      <input type="password" name="p" placeholder="Confirm password" required="required" />
+      <p id="passmatch" style="opacity: 0">
+        Las contraseñas no coinciden!
+      </p>
+      <button id="submit" class="btn btn-primary btn-block btn-large">Aceptar</button>
+    </form>
+
+    <div style="display:none;" id="mailConfirm">
+      <p style="color:white ;text-align: center;">Hemos enviado un código para confirmar tu correo electrónico.</p>
+      <input type="text" name="c" placeholder="Código de confirmación" required="required" />
+      <button id="submit2" class="btn btn-primary btn-block btn-large">Aceptar</button>
+    </div>
+
+  </div>
+
+  <div id="dashboard" style="display: none;">
+    <h1>DASHBOARD</h1>
+  </div>
+
+
+  <script src="assets/request.js"> </script>
+
+
+</body>
+
+</html>
