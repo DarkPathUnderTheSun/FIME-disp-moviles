@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from sanic import Sanic
 from sanic.response import json
 import boto3
