@@ -80,7 +80,7 @@ async def userInfo(request):
 async def confirm(request):
     correo = request.args.get("correo")
     password = request.args.get("password")
-    query = "SELECT password FROM users WHERE correos = '"+correo+"';"
+    query = "SELECT contras FROM users WHERE correos = '"+correo+"';"
     cursorObject.execute(query)
     passwordFromDatabase = str(cursorObject.fetchall()[0][0])
     if password == passwordFromDatabase:
