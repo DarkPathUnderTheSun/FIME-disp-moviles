@@ -13,21 +13,17 @@ conn = mysql.connector.connect(user = 'root',
                                 password = 'zweihander995',
                                 host = 'localhost',
                                 database = 'disp_moviles')
-
+cursorObject = conn.cursor()
 
 app = Sanic(name="APIbuilding")
+
+
 @app.route('/')
 async def main(request):
     return json({'hello': 'world'})
 
 @app.route('/confirmMail')
 async def confirm(request):
-    conn = mysql.connector.connect(user = 'root',
-                                password = 'zweihander995',
-                                host = 'localhost',
-                                database = 'disp_moviles')
-    cursorObject = conn.cursor()
-
     correo = request.args.get("correo")
     query = "SELECT numero_verif FROM users WHERE correos = '"+correo+"';"
     cursorObject.execute(query)
@@ -39,11 +35,8 @@ async def confirm(request):
 
         sql = "update users set status_verif = 'CONFIRMED' where correos = '"+correo+"';"
         cursorObject.execute(sql)
-        conn.commit()
-        conn.close()
         return json({"numbers match":"verified"})
     else:
-        conn.close()
         return json({"no match":"no changes"})
 
 @app.route('/userInfo')
@@ -72,16 +65,28 @@ async def userInfo(request):
             print("Email sent! Message ID:"),
             print(response['MessageId'])
 
-        mycursor = conn.cursor()
         sql = "INSERT INTO users (correos, contras, numero_verif, status_verif) VALUES ('"+request.args.get("correo")+"','"+request.args.get("password")+"',"+str(verifCode)+",'NOT-CONFIRMED')"
         print(sql)
-        mycursor.execute(sql)
-        conn.commit()
-        conn.close()
+        cursorObject.execute(sql)
 
         return json({"passwords match":"mail sent"})
     else:
         return json({"Error:":"passwords don't match"})
+
+
+@app.route('/loginRequest')
+async def confirm(request):
+    correo = request.args.get("correo")
+    password = request.args.get("password")
+    query = "SELECT password FROM users WHERE correos = '"+correo+"';"
+    cursorObject.execute(query)
+    passwordFromDatabase = str(cursorObject.fetchall()[0][0])
+    if password == passwordFromDatabase:
+        return json({"ok":"let user in"})
+    else:
+        return json({"mismatch":"do not let user in"})
+
+
 
 if __name__ == '__main__':
     app.run(host='localhost', port=8000)
