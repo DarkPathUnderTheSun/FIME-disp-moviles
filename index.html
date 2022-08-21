@@ -4,29 +4,49 @@
 <head>
   <meta charset="UTF-8" />
   <title>Login</title>
-  <meta name="viewport"
-    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="stylesheet" href="assets/style.css">
-
 </head>
 
 <body>
 
-
+  <!--                  LOGIN ACTIVITY                    -->
   <div class="login" style="display:block;" id="login">
-    <h1>Log In</h1>
-    <form id="userInfo" style="display:block;">
-      <input type="text" name="u" placeholder="Username" required="required" />
-      <input type="password" name="p" placeholder="Password" required="required" />
+
+    <!--          Sign In         -->
+    <div style="display:block;" id="signIn">
+      <h1>Iniciar Sesión</h1>
+      <form id="userMailAndPassword">
+        <input type="text" name="loginUsername" placeholder="Email" required="required"/>
+        <input type="password" name="loginPassword" placeholder="Contraseña" required="required"/>
+        <br>
+        <br>
+        <button id="loginSubmit" class="btn btn-primary btn-block btn-large" style="text-align: center;">Aceptar</button>
+      </form>
+      <br>
+      <br>
+      <br>
+      <p style="color:white; text-align: center;" id="makeAccount">Crear cuenta</p>
+    </div>
+
+    <!--          Sign Up         -->
+    <form style="display:none;" id="signUp">
+      <h1>Crear Cuenta</h1>
+      <input type="text" name="u" placeholder="Username" required="required"/>
+      <input type="password" name="p" placeholder="Password" required="required"/>
       <input type="password" name="p" placeholder="Confirm password" required="required" />
       <p id="passmatch" style="opacity: 0">
         Las contraseñas no coinciden!
       </p>
-      <button id="submit" class="btn btn-primary btn-block btn-large">Aceptar</button>
+      <button id="submitMakeAccountData" class="btn btn-primary btn-block btn-large">Aceptar</button>
+      <br>
+      <br>
+      <p style="color:white; text-align: center;" id="cancelMakeAccount">Iniciar sesión</p>
     </form>
 
+    <!--          Confirm Email Code         -->
     <div style="display:none;" id="mailConfirm">
+      <h1>Crear Cuenta</h1>
       <p style="color:white ;text-align: center;">Hemos enviado un código para confirmar tu correo electrónico.</p>
       <input type="text" name="c" placeholder="Código de confirmación" required="required" />
       <button id="submit2" class="btn btn-primary btn-block btn-large">Aceptar</button>
@@ -34,14 +54,15 @@
 
   </div>
 
+
+
+  <!--                  Dashboard Activity                    -->
   <div id="dashboard" style="display: none;">
-    <h1>DASHBOARD</h1>
+    <h1 style="color: white; text-align: center;">DASHBOARD</h1>
   </div>
 
 
-  <script src="assets/request.js"> </script>
 
-
+  <script src="assets/scripting.js"> </script>
 </body>
-
 </html>

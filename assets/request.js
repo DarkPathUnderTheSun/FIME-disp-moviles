@@ -1,6 +1,6 @@
-const URL = "http://localhost:8000/"
+const URL = "http://23.21.222.228:8000/"
 
-var email
+var email 
 
 document.getElementById("submit").addEventListener("click", (event) => {
     event.preventDefault()
@@ -47,8 +47,24 @@ document.getElementById("submit2").addEventListener("click", (event) => {
         console.log("si se pudo serializado")
         if (serializedResponse["numbers match"] === "verified") {
             document.getElementById("mailConfirm").style.display = "none"
-            document.getElementById("login").style.display = "none"
+            document.getElementById("signUp").style.display = "none"
             document.getElementById("dashboard").style.display = "block"
         }
     })
+})
+
+
+document.getElementById("makeAccount").addEventListener("click", (event) => {
+    event.preventDefault()
+    document.getElementById("signIn").style.display = "none"
+    document.getElementById("signUp").style.display = "block"
+    document.getElementById("mailConfirm").style.display = "none"
+})
+
+
+document.getElementById("cancelMakeAccount").addEventListener("click", (event) => {
+    event.preventDefault()
+    document.getElementById("signIn").style.display = "block"
+    document.getElementById("signUp").style.display = "none"
+    document.getElementById("mailConfirm").style.display = "none"
 })
