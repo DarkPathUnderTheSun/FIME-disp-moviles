@@ -67,6 +67,12 @@ function postData (url, route, data) {
 
     fetch(request).then((response) => response.json()).then(serializedResponse => {
         console.log(serializedResponse)
+        let serverAnswer = serializedResponse
+        if (Object.keys(serverAnswer)[0] == "ok") {
+            console.log("successful login")
+            document.getElementById("login").style.display = "none"
+            document.getElementById("dashboard").style.display = "block"
+        }
     })
 }
 
