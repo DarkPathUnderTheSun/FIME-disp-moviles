@@ -38,11 +38,11 @@ async def confirm(request):
     password = str(request.args.get("password"))
 
     abortRequest = 0
-    if correo == "":
+    if correo == "None":
         abortRequest = 1
         return json({"fail":"no user specified"},headers={"Access-Control-Allow-Origin": "*"})
     
-    if correo == "":
+    if correo == "None":
         abortRequest = 1
         return json({"fail":"no password specified"},headers={"Access-Control-Allow-Origin": "*"})
 
