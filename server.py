@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from os import abort
 from sanic import Sanic
 from sanic.response import json
 import boto3
@@ -36,27 +37,31 @@ async def confirm(request):
     correo = request.args.get("correo")
     password = request.args.get("password")
 
+    abortRequest = 0
     if correo == "":
+        abortRequest = 1
         return json({"fail":"no user specified"},headers={"Access-Control-Allow-Origin": "*"})
     
     if correo == "":
+        abortRequest = 1
         return json({"fail":"no password specified"},headers={"Access-Control-Allow-Origin": "*"})
 
-    query = "SELECT contras FROM users WHERE correos = '"+correo+"';"
-    queryResult = sqlQuery(query)
+    if abortRequest == 0:
+        query = "SELECT contras FROM users WHERE correos = '"+correo+"';"
+        queryResult = sqlQuery(query)
 
-    print("Login request for user "+correo+"...")
+        print("Login request for user "+correo+"...")
 
-    if queryResult == []:
-        print("user "+correo+" does not exist")
-        return json({"fail":"user does not exist"},headers={"Access-Control-Allow-Origin": "*"})
+        if queryResult == []:
+            print("user "+correo+" does not exist")
+            return json({"fail":"user does not exist"},headers={"Access-Control-Allow-Origin": "*"})
 
-    if password == queryResult[0][0]:
-        print("passwords match.")
-        return json({"ok":"password match"},headers={"Access-Control-Allow-Origin": "*"})
-    else:
-        print("password mismatch.")
-        return json({"fail":"password mismatch"},headers={"Access-Control-Allow-Origin": "*"})
+        if password == queryResult[0][0]:
+            print("passwords match.")
+            return json({"ok":"password match"},headers={"Access-Control-Allow-Origin": "*"})
+        else:
+            print("password mismatch.")
+            return json({"fail":"password mismatch"},headers={"Access-Control-Allow-Origin": "*"})
 
 if __name__ == '__main__':
     app.run(host='172.26.5.244', port=8000)
