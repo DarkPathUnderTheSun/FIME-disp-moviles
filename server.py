@@ -14,6 +14,17 @@ import mysql.connector
 
 app = Sanic(name="APIbuilding")
 
+def sqlQuery(query):
+    conn = mysql.connector.connect(user = 'root',
+                                password = 'zweihander995',
+                                host = 'localhost',
+                                database = 'disp_moviles')
+    cursorObject = conn.cursor()
+    cursorObject.execute(query)
+    queryResult = cursorObject.fetchall()
+    conn.close()
+    return queryResult
+
 
 @app.route('/')
 async def main(request):
@@ -25,16 +36,7 @@ async def confirm(request):
     correo = request.args.get("correo")
     password = request.args.get("password")
     query = "SELECT contras FROM users WHERE correos = '"+correo+"';"
-    
-    
-    conn = mysql.connector.connect(user = 'root',
-                                password = 'zweihander995',
-                                host = 'localhost',
-                                database = 'disp_moviles')
-    cursorObject = conn.cursor()
-    cursorObject.execute(query)
-
-    queryResult = cursorObject.fetchall()
+    queryResult = sqlQuery(query)
 
     print("Login request for user "+correo+"...")
 
