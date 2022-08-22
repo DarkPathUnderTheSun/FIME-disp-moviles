@@ -36,13 +36,18 @@ async def confirm(request):
 
     queryResult = cursorObject.fetchall()
 
-    if queryResult == []:
-        return json({"mismatch":"do not let user in"})
+    print("Login request for user "+correo+"...")
 
-    if password == queryResult[0]:
-        return json({"ok":"let user in"})
+    if queryResult == []:
+        print("user "+correo+" does not exist")
+        return json({"fail":"user does not exist"})
+
+    if password == queryResult[0][0]:
+        print("passwords match.")
+        return json({"ok":"password match"})
     else:
-        return json({"mismatch":"do not let user in"})
+        print("password mismatch.")
+        return json({"fail":"password mismatch"})
 
 if __name__ == '__main__':
     app.run(host='172.26.5.244', port=8000)
