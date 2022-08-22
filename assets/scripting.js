@@ -65,8 +65,8 @@ function postData (url, route, data) {
     console.log(request)
 
 
-    // fetch(request).then(response => response.json()).then(serializedResponse => {
-    //     console.log(serializedResponse)
-    // })
+    fetch(request).then((response) => response.json()).then(serializedResponse => {
+        console.log(serializedResponse)
+    })
 }
 

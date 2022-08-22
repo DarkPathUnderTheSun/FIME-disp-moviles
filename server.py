@@ -42,14 +42,14 @@ async def confirm(request):
 
     if queryResult == []:
         print("user "+correo+" does not exist")
-        return json({"fail":"user does not exist"})
+        return json({"fail":"user does not exist"},headers={"Access-Control-Allow-Origin": "*"})
 
     if password == queryResult[0][0]:
         print("passwords match.")
-        return json({"ok":"password match"})
+        return json({"ok":"password match"},headers={"Access-Control-Allow-Origin": "*"})
     else:
         print("password mismatch.")
-        return json({"fail":"password mismatch"})
+        return json({"fail":"password mismatch"},headers={"Access-Control-Allow-Origin": "*"})
 
 if __name__ == '__main__':
     app.run(host='172.26.5.244', port=8000)
