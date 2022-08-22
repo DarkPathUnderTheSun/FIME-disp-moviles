@@ -35,6 +35,13 @@ async def main(request):
 async def confirm(request):
     correo = request.args.get("correo")
     password = request.args.get("password")
+
+    if correo == "":
+        return json({"fail":"no user specified"},headers={"Access-Control-Allow-Origin": "*"})
+    
+    if correo == "":
+        return json({"fail":"no password specified"},headers={"Access-Control-Allow-Origin": "*"})
+
     query = "SELECT contras FROM users WHERE correos = '"+correo+"';"
     queryResult = sqlQuery(query)
 
