@@ -34,8 +34,8 @@ async def main(request):
 
 @app.route('/loginRequest')
 async def confirm(request):
-    correo = request.args.get("correo")
-    password = request.args.get("password")
+    correo = str(request.args.get("correo"))
+    password = str(request.args.get("password"))
 
     abortRequest = 0
     if correo == "":
