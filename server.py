@@ -28,7 +28,7 @@ def sqlQuery(query):
     cursorObject = conn.cursor()
     cursorObject.execute(query)
 
-    print(query[0:6])
+    print(query[0:5])
 
     queryResult = cursorObject.fetchall()
     conn.close()
