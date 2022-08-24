@@ -99,10 +99,7 @@ async def confirm(request):
     #     print("Email sent! Message ID:"),
     #     print(response['MessageId'])
     # 
-    # sql = "INSERT INTO users (correos, contras, numero_verif, status_verif) VALUES ('"+request.args.get("correo")+"','"+request.args.get("password")+"','"+str(verifCode)+"','NOT-CONFIRMED');"
-
-
-    query = "INSERT INTO users (correos, contras, numero_verif, status_verif) VALUES ('usuario2@mail.com','password','000011','NOT-CONFIRMED');"
+    query = "INSERT INTO users (correos, contras, numero_verif, status_verif) VALUES ('"+request.args.get("correo")+"','"+request.args.get("password")+"','"+str(verifCode)+"','NOT-CONFIRMED');"
     print(query)
     queryResult = sqlQuery(query)
     print(queryResult)
