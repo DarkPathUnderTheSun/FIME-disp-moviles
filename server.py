@@ -27,6 +27,9 @@ def sqlQuery(query):
                                 database = 'disp_moviles')
     cursorObject = conn.cursor()
     cursorObject.execute(query)
+
+    print(query[0:6])
+
     queryResult = cursorObject.fetchall()
     conn.close()
     return queryResult
@@ -81,24 +84,26 @@ async def confirm(request):
     </body>
     </html>
     """
-    client = boto3.client('ses',region_name=AWS_REGION)
-    try:
-       response = client.send_email(
-       Destination={'ToAddresses': [RECIPIENT,],},
-       Message={'Body':{'Html': {'Charset': CHARSET,'Data': BODY_HTML,},'Text': {'Charset': CHARSET,'Data': "",},},'Subject':{'Charset': CHARSET,'Data': SUBJECT,},},Source=SENDER,)
-       print ("sending mail...")
-    except ClientError as e:
-        print(e.response['Error']['Message'])
-    else:
-        print("Email sent! Message ID:"),
-        print(response['MessageId'])
-     
+
+    # Send Email
+    # client = boto3.client('ses',region_name=AWS_REGION)
+    # try:
+    #    response = client.send_email(
+    #    Destination={'ToAddresses': [RECIPIENT,],},
+    #    Message={'Body':{'Html': {'Charset': CHARSET,'Data': BODY_HTML,},'Text': {'Charset': CHARSET,'Data': "",},},'Subject':{'Charset': CHARSET,'Data': SUBJECT,},},Source=SENDER,)
+    #    print ("sending mail...")
+    # except ClientError as e:
+    #     print(e.response['Error']['Message'])
+    # else:
+    #     print("Email sent! Message ID:"),
+    #     print(response['MessageId'])
+    # 
     # sql = "INSERT INTO users (correos, contras, numero_verif, status_verif) VALUES ('"+request.args.get("correo")+"','"+request.args.get("password")+"','"+str(verifCode)+"','NOT-CONFIRMED');"
 
 
-    sql = "INSERT INTO users (correos, contras, numero_verif, status_verif) VALUES ('usuario2@mail.com','password','000011','NOT-CONFIRMED');"
-    print(sql)
-    queryResult = sqlQuery(sql)
+    query = "INSERT INTO users (correos, contras, numero_verif, status_verif) VALUES ('usuario2@mail.com','password','000011','NOT-CONFIRMED');"
+    print(query)
+    queryResult = sqlQuery(query)
     print(queryResult)
     return json({"under construction":"under construction"},headers={"Access-Control-Allow-Origin": "*"})
 
