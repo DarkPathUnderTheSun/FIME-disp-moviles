@@ -20,7 +20,9 @@
         <input type="text" name="loginUsername" placeholder="Email" required="required"/>
         <input type="password" name="loginPassword" placeholder="Contraseña" required="required"/>
         <br>
-        <br>
+        <p id="signInError" style="opacity: 0;color: white;text-align: center;">
+          Error en usuario o contraseña.
+        </p>
         <button id="loginSubmit" class="btn btn-primary btn-block btn-large" style="text-align: center;">Aceptar</button>
       </form>
       <br>
@@ -59,6 +61,7 @@
   <!--                  Dashboard Activity                    -->
   <div id="dashboard" style="display: none;">
     <h1 style="color: white; text-align: center;">DASHBOARD</h1>
+    <button id="logOut" class="btn btn-primary" style="display: block; margin: 0 auto;">Cerrar sesión</button>
   </div>
 
 

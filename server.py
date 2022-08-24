@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+# Oi! Remember to use "screen" before launching this on Lightsail!
+# To deattach the "screen", "ctrl-a" then "d"
+# To reattach it, "screen -r"
+
+
 from os import abort
 from sanic import Sanic
 from sanic.response import json
@@ -62,6 +67,37 @@ async def confirm(request):
         else:
             print("password mismatch.")
             return json({"fail":"password mismatch"},headers={"Access-Control-Allow-Origin": "*"})
+
+
+@app.route('/signUpRequest')
+async def confirm(request):
+    verifCode=random.randint(100000,999999)
+    BODY_HTML = """<html>
+    <head></head>
+    <body>
+    <h1>"""+SUBJECT+"""</h1>
+    <p> Tu código de verificación es: <b>"""+str(verifCode)+""" </b>.<br> <br>
+    </p>
+    </body>
+    </html>
+    """
+    client = boto3.client('ses',region_name=AWS_REGION)
+    try:
+       response = client.send_email(
+       Destination={'ToAddresses': [RECIPIENT,],},
+       Message={'Body':{'Html': {'Charset': CHARSET,'Data': BODY_HTML,},'Text': {'Charset': CHARSET,'Data': "",},},'Subject':{'Charset': CHARSET,'Data': SUBJECT,},},Source=SENDER,)
+       print ("sending mail...")
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        print("Email sent! Message ID:"),
+        print(response['MessageId'])
+     
+    sql = "INSERT INTO users (correos, contras, numero_verif, status_verif) VALUES ('"+request.args.get("correo")+"','"+request.args.get("password")+"',"+str(verifCode)+",'NOT-CONFIRMED')"
+    print(sql)
+    queryResult = sqlQuery(sql)
+    print(queryResult)
+    return json({"under construction":"under construction"},headers={"Access-Control-Allow-Origin": "*"})
 
 if __name__ == '__main__':
     app.run(host='172.26.5.244', port=8000)
