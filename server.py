@@ -29,7 +29,7 @@ def sqlQuery(query):
     cursorObject.execute(query)
 
     if query[0:6] == "INSERT":
-        cursorObject.commit()
+        conn.commit()
 
     queryResult = cursorObject.fetchall()
     conn.close()
