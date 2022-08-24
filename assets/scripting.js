@@ -44,6 +44,8 @@ document.getElementById("submitMakeAccountData").addEventListener("click", (even
                     }
                     request = URL+"signUpRequest"+"/?"+dataToRequest
 
+                    console.log(request)
+
                     fetch(request).then((response) => response.json()).then(serializedResponse => {
                         console.log(Object.keys(serializedResponse))
                         let answer = Object.keys(serializedResponse)
