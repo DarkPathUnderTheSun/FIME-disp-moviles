@@ -78,34 +78,34 @@ async def confirm(request):
 
 @app.route('/signUpRequest')
 async def confirm(request):
-    # verifCode=random.randint(100000,999999)
-    # BODY_HTML = """<html>
-    # <head></head>
-    # <body>
-    # <h1>"""+SUBJECT+"""</h1>
-    # <p> Tu código de verificación es: <b>"""+str(verifCode)+""" </b>.<br> <br>
-    # </p>
-    # </body>
-    # </html>
-    # """
-    # 
-    # # Send Email
-    # client = boto3.client('ses',region_name=AWS_REGION)
-    # try:
-    #    response = client.send_email(
-    #    Destination={'ToAddresses': [RECIPIENT,],},
-    #    Message={'Body':{'Html': {'Charset': CHARSET,'Data': BODY_HTML,},'Text': {'Charset': CHARSET,'Data': "",},},'Subject':{'Charset': CHARSET,'Data': SUBJECT,},},Source=SENDER,)
-    #    print ("sending mail...")
-    # except ClientError as e:
-    #     print(e.response['Error']['Message'])
-    # else:
-    #     print("Email sent! Message ID:"),
-    #     print(response['MessageId'])
-    # 
-    # query = "INSERT INTO users (correos, contras, numero_verif, status_verif) VALUES ('"+request.args.get("correo")+"','"+request.args.get("password")+"','"+str(verifCode)+"','NOT-CONFIRMED');"
-    # print(query)
-    # queryResult = sqlQuery(query)
-    # print(queryResult)
+    verifCode=random.randint(100000,999999)
+    BODY_HTML = """<html>
+    <head></head>
+    <body>
+    <h1>"""+SUBJECT+"""</h1>
+    <p> Tu código de verificación es: <b>"""+str(verifCode)+""" </b>.<br> <br>
+    </p>
+    </body>
+    </html>
+    """
+    
+    # Send Email
+    client = boto3.client('ses',region_name=AWS_REGION)
+    try:
+       response = client.send_email(
+       Destination={'ToAddresses': [RECIPIENT,],},
+       Message={'Body':{'Html': {'Charset': CHARSET,'Data': BODY_HTML,},'Text': {'Charset': CHARSET,'Data': "",},},'Subject':{'Charset': CHARSET,'Data': SUBJECT,},},Source=SENDER,)
+       print ("sending mail...")
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        print("Email sent! Message ID:"),
+        print(response['MessageId'])
+    
+    query = "INSERT INTO users (correos, contras, numero_verif, status_verif) VALUES ('"+request.args.get("correo")+"','"+request.args.get("password")+"','"+str(verifCode)+"','NOT-CONFIRMED');"
+    print(query)
+    queryResult = sqlQuery(query)
+    print(queryResult)
     return json({"under construction":"under construction"},headers={"Access-Control-Allow-Origin": "*"})
 
 @app.route('/confirmMail')
@@ -118,9 +118,9 @@ async def confirm(request):
 
         query = "UPDATE users set status_verif = 'CONFIRMED' where correos = '"+correo+"';"
         sqlQuery(query)
-        return json({"new_status":"verified"})
+        return json({"new_status":"verified"},headers={"Access-Control-Allow-Origin": "*"})
     else:
-        return json({"new_status":"not_verified"})
+        return json({"new_status":"not_verified"},headers={"Access-Control-Allow-Origin": "*"})
 
 if __name__ == '__main__':
     app.run(host='172.26.5.244', port=8000)
