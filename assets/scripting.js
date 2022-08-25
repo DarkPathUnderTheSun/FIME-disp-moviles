@@ -1,5 +1,7 @@
 const URL = "http://23.21.222.228:8000/"
 
+var mail
+
 // LOGIN ACTIVITY
 
 // Hiding and Showing Widgets
@@ -14,6 +16,12 @@ document.getElementById("cancelMakeAccount").addEventListener("click", (event) =
 document.getElementById("logOut").addEventListener("click", (event) => {
     document.getElementById("login").style.display = "block"
     document.getElementById("dashboard").style.display = "none"
+})
+
+
+document.getElementById("confirmMailSubmit").addEventListener("click", (event) => {
+    event.preventDefault()
+    print(mail)
 })
 
 
@@ -48,15 +56,8 @@ document.getElementById("submitMakeAccountData").addEventListener("click", (even
 
                     fetch(request).then((response) => response.json()).then(serializedResponse => {
                         console.log(Object.keys(serializedResponse))
-                        let answer = Object.keys(serializedResponse)
-                        // if (answer == "ok") {
-                        //     document.getElementById("login").style.display = "none"
-                        //     document.getElementById("dashboard").style.display = "block"
-                        // }
-                        // else {
-                        //     event.target.parentNode.children[3].style = "opacity: 1;color: white;text-align: center;"
-                        //     setTimeout(() => { event.target.parentNode.children[3].style = "opacity: 0" }, 4000)
-                        // }
+                        document.getElementById("signUp").style.display = "none"
+                        document.getElementById("mailConfirm").style.display = "block"                
                     })
 
                 }   
