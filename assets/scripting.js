@@ -1,4 +1,4 @@
-const URL = "http://23.21.222.228:8000/"
+const URL = "http://skyclad.xyz/"
 
 var mail
 
@@ -118,6 +118,7 @@ document.getElementById("loginSubmit").addEventListener("click", (event) => {
     }
 
     request = URL+"loginRequest"+"/?"+dataToRequest
+    console.log(request)
 
     fetch(request).then((response) => response.json()).then(serializedResponse => {
         console.log(Object.keys(serializedResponse))
