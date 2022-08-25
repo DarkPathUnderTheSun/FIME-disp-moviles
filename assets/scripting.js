@@ -35,7 +35,17 @@ document.getElementById("confirmMailSubmit").addEventListener("click", (event) =
         console.log(request)
         
         fetch(request).then((response) => response.json()).then(serializedResponse => {
-            console.log(Object.keys(serializedResponse))              
+            console.log(serializedResponse["new_status"])
+            newStatus = serializedResponse["new_status"]
+            if (newStatus == "verified") {
+                document.getElementById("signIn").style.display = "block"
+                document.getElementById("signUp").style.display = "none"
+                document.getElementById("mailConfirm").style.display = "none"
+            }
+            if (newStatus == "not_verified") {
+                event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 1;"
+                setTimeout(() => { event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 0;" }, 4000)
+            }
         })
     }
 })

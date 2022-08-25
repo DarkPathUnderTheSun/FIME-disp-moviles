@@ -59,7 +59,7 @@ async def confirm(request):
         return json({"fail":"no password specified"},headers={"Access-Control-Allow-Origin": "*"})
 
     if abortRequest == 0:
-        query = "SELECT contras FROM users WHERE correos = '"+correo+"';"
+        query = "SELECT contras FROM users WHERE correos = '"+correo+"' AND status_verif = 'CONFIRMED';"
         queryResult = sqlQuery(query)
 
         print("Login request for user "+correo+"...")
