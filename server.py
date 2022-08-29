@@ -19,8 +19,8 @@ CHARSET = "UTF-8"
 import mysql.connector
 app = Sanic(name="APIbuilding")
 ssl = {
-    "cert": "/etc/letsencrypt/live/skyclad.xyz/fullchain.pem",
-    "key": "/etc/letsencrypt/live/skyclad.xyz/privkey.pem",
+    "cert": "/home/ec2-user/keys/fullchain.pem",
+    "key": "/home/ec2-user/keys/privkey.pem",
 }
 
 
