@@ -112,7 +112,7 @@ async def confirm(request):
     print(query)
     queryResult = sqlQuery(query)
     print(queryResult)
-    return json({"under construction":"under construction"},headers={"Access-Control-Allow-Origin": "*"})
+    return json({"under construction":"under construction"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
 
 @app.route('/confirmMail')
 async def confirm(request):
@@ -124,9 +124,9 @@ async def confirm(request):
 
         query = "UPDATE users set status_verif = 'CONFIRMED' where correos = '"+correo+"';"
         sqlQuery(query)
-        return json({"new_status":"verified"},headers={"Access-Control-Allow-Origin": "*"})
+        return json({"new_status":"verified"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
     else:
-        return json({"new_status":"not_verified"},headers={"Access-Control-Allow-Origin": "*"})
+        return json({"new_status":"not_verified"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
 
 if __name__ == '__main__':
     app.run(host='172.26.5.244', port=8443, ssl=ssl)
