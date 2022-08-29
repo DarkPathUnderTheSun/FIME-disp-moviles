@@ -58,11 +58,11 @@ async def confirm(request):
     abortRequest = 0
     if correo == "None":
         abortRequest = 1
-        return json({"fail":"no user specified"},headers={"Access-Control-Allow-Origin": "*"})
+        return json({"fail":"no user specified"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
     
     if password == "None":
         abortRequest = 1
-        return json({"fail":"no password specified"},headers={"Access-Control-Allow-Origin": "*"})
+        return json({"fail":"no password specified"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
 
     if abortRequest == 0:
         query = "SELECT contras FROM users WHERE correos = '"+correo+"' AND status_verif = 'CONFIRMED';"
@@ -72,14 +72,14 @@ async def confirm(request):
 
         if queryResult == []:
             print("user "+correo+" does not exist")
-            return json({"fail":"user does not exist"},headers={"Access-Control-Allow-Origin": "*"})
+            return json({"fail":"user does not exist"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
 
         if password == queryResult[0][0]:
             print("passwords match.")
-            return json({"ok":"password match"},headers={"Access-Control-Allow-Origin": "*"})
+            return json({"ok":"password match"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
         else:
             print("password mismatch.")
-            return json({"fail":"password mismatch"},headers={"Access-Control-Allow-Origin": "*"})
+            return json({"fail":"password mismatch"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
 
 
 @app.route('/signUpRequest')

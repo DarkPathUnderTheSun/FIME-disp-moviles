@@ -1,4 +1,4 @@
-const URL = "http://skyclad.xyz/"
+const URL = "https://skyclad.xyz/"
 
 var mail
 
