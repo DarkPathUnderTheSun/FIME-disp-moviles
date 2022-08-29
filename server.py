@@ -17,8 +17,14 @@ AWS_REGION = "us-east-1"
 SUBJECT = "Verifica tu correo electrónico"
 CHARSET = "UTF-8"
 import mysql.connector
-
 app = Sanic(name="APIbuilding")
+ssl = {
+    "cert": "/etc/letsencrypt/live/skyclad.xyz/fullchain.pem",
+    "key": "/etc/letsencrypt/live/skyclad.xyz/privkey.pem",
+}
+
+
+
 
 def sqlQuery(query):
     conn = mysql.connector.connect(user = 'root',
@@ -123,7 +129,7 @@ async def confirm(request):
         return json({"new_status":"not_verified"},headers={"Access-Control-Allow-Origin": "*"})
 
 if __name__ == '__main__':
-    app.run(host='172.26.5.244', port=8000)
+    app.run(host='172.26.5.244', port=8443, ssl=ssl)
 
 # 
 # @app.route('/userInfo')
