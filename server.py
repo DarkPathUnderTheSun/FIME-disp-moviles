@@ -89,7 +89,7 @@ async def confirm(request):
     <head></head>
     <body>
     <h1>"""+SUBJECT+"""</h1>
-    <p> Tu código de verificación es: <b>"""+str(verifCode)+""" </b>.<br> <br>
+    <p> Tu código de verificación es: <b>"""+str(verifCode)+"""</b>.<br> <br>
     </p>
     </body>
     </html>

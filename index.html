@@ -10,49 +10,95 @@
 
 <body>
 
+  <div>
+    <select name="lang" id="langSelector">
+      <option value="Es">Español</option>
+      <option value="En">English</option>
+    </select>
+  </div>
+
   <!--                  LOGIN ACTIVITY                    -->
   <div class="login" style="display:block;" id="login">
 
     <!--          Sign In         -->
-    <div style="display:block;" id="signIn">
+    <div style="display:block;" id="signInEs">
       <h1>Iniciar Sesión</h1>
-      <form id="userMailAndPassword">
+      <form id="userMailAndPasswordEs">
         <input type="text" name="loginUsername" placeholder="Email" required="required"/>
         <input type="password" name="loginPassword" placeholder="Contraseña" required="required"/>
         <br>
-        <p id="signInError" style="opacity: 0;color: white;text-align: center;">
+        <p id="signInErrorEs" style="opacity: 0;color: white;text-align: center;">
           Error en usuario o contraseña.
         </p>
-        <button id="loginSubmit" class="btn btn-primary btn-block btn-large" style="text-align: center;">Aceptar</button>
+        <button id="loginSubmitEs" class="btn btn-primary btn-block btn-large" style="text-align: center;">Aceptar</button>
       </form>
       <br>
       <br>
       <br>
-      <p style="color:white; text-align: center;" id="makeAccount">Crear cuenta</p>
+      <p style="color:white; text-align: center;" id="makeAccountEs">Crear cuenta</p>
+    </div>
+
+    <div style="display:none;" id="signInEn">
+      <h1>Log In</h1>
+      <form id="userMailAndPasswordEn">
+        <input type="text" name="loginUsername" placeholder="Email" required="required"/>
+        <input type="password" name="loginPassword" placeholder="Password" required="required"/>
+        <br>
+        <p id="signInErrorEn" style="opacity: 0;color: white;text-align: center;">
+          Error in username or password.
+        </p>
+        <button id="loginSubmitEn" class="btn btn-primary btn-block btn-large" style="text-align: center;">Accept</button>
+      </form>
+      <br>
+      <br>
+      <br>
+      <p style="color:white; text-align: center;" id="makeAccountEn">Create account</p>
     </div>
 
     <!--          Sign Up         -->
-    <form style="display:none;" id="signUp">
+    <form style="display:none;" id="signUpEs">
       <h1>Crear Cuenta</h1>
       <input type="text" name="u" placeholder="Username" required="required"/>
       <input type="password" name="p" placeholder="Password" required="required"/>
       <input type="password" name="p" placeholder="Confirm password" required="required" />
-      <p id="passmatch" style="opacity: 0">
+      <p id="passmatchEs" style="opacity: 0">
         Las contraseñas no coinciden!
       </p>
-      <button id="submitMakeAccountData" class="btn btn-primary btn-block btn-large">Aceptar</button>
+      <button id="submitMakeAccountDataEs" class="btn btn-primary btn-block btn-large">Aceptar</button>
       <br>
       <br>
-      <p style="color:white; text-align: center;" id="cancelMakeAccount">Iniciar sesión</p>
+      <p style="color:white; text-align: center;" id="cancelMakeAccountEs">Iniciar sesión</p>
+    </form>
+
+    <form style="display:none;" id="signUpEn">
+      <h1>Create Account</h1>
+      <input type="text" name="u" placeholder="Username" required="required"/>
+      <input type="password" name="p" placeholder="Password" required="required"/>
+      <input type="password" name="p" placeholder="Confirm password" required="required" />
+      <p id="passmatchEn" style="opacity: 0">
+        Passwords don't match!
+      </p>
+      <button id="submitMakeAccountDataEn" class="btn btn-primary btn-block btn-large">Acxcept</button>
+      <br>
+      <br>
+      <p style="color:white; text-align: center;" id="cancelMakeAccountEn">Sign In</p>
     </form>
 
     <!--          Confirm Email Code         -->
-    <div style="display:none;" id="mailConfirm">
+    <div style="display:none;" id="mailConfirmEs">
       <h1>Crear Cuenta</h1>
       <p style="color:white ;text-align: center;">Hemos enviado un código para confirmar tu correo electrónico.</p>
       <input type="text" name="c" placeholder="Código de confirmación" required="required" />
-      <button id="confirmMailSubmit" class="btn btn-primary btn-block btn-large">Aceptar</button>
-      <p style="color:white ;text-align: center;opacity: 0;" id="warningVerif">No se ha podido validar el código. Intenta de nuevo.</p>
+      <button id="confirmMailSubmitEs" class="btn btn-primary btn-block btn-large">Aceptar</button>
+      <p style="color:white ;text-align: center;opacity: 0;" id="warningVerifEs">No se ha podido validar el código. Intenta de nuevo.</p>
+    </div>
+
+    <div style="display:none;" id="mailConfirmEn">
+      <h1>Create Account</h1>
+      <p style="color:white ;text-align: center;">We've sent a code to verify your email.</p>
+      <input type="text" name="c" placeholder="Código de confirmación" required="required" />
+      <button id="confirmMailSubmitEn" class="btn btn-primary btn-block btn-large">Accept</button>
+      <p style="color:white ;text-align: center;opacity: 0;" id="warningVerifEn">Code not validated. Please try again.</p>
     </div>
 
   </div>
@@ -60,11 +106,16 @@
 
 
   <!--                  Dashboard Activity                    -->
-  <div id="dashboard" style="display: none;">
-    <h1 style="color: white; text-align: center;">DASHBOARD</h1>
-    <button id="logOut" class="btn btn-primary" style="display: block; margin: 0 auto;">Cerrar sesión</button>
+
+  <div id="dashboardEs" style="display: none;">
+    <h1 style="color: white; text-align: center;">MENÚ PRINCIPAL</h1>
+    <button id="logOutEs" class="btn btn-primary" style="display: block; margin: 0 auto;">Cerrar sesión</button>
   </div>
 
+  <div id="dashboardEn" style="display: none;">
+    <h1 style="color: white; text-align: center;">DASHBOARD</h1>
+    <button id="logOutEn" class="btn btn-primary" style="display: block; margin: 0 auto;">Log out</button>
+  </div>
 
 
   <script src="assets/scripting.js"> </script>
