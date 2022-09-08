@@ -20,11 +20,20 @@ function displayElement(elementId) {
     document.getElementById("signUpEs").style.display = "none"
     document.getElementById("mailConfirmEs").style.display = "none"
     document.getElementById("dashboardEs").style.display = "none"
+    document.getElementById("adminDashboardEs").style.display = "none"
+
     document.getElementById("signInEn").style.display = "none"
     document.getElementById("signUpEn").style.display = "none"
     document.getElementById("mailConfirmEn").style.display = "none"
     document.getElementById("dashboardEn").style.display = "none"
-    document.getElementById("adminDashboardEs").style.display = "none"
+    document.getElementById("adminDashboardEn").style.display = "none"
+
+    document.getElementById("signInDe").style.display = "none"
+    document.getElementById("signUpDe").style.display = "none"
+    document.getElementById("mailConfirmDe").style.display = "none"
+    document.getElementById("dashboardDe").style.display = "none"
+    document.getElementById("adminDashboardDe").style.display = "none"
+    
     console.log(elementId)
     document.getElementById(elementId).style.display = "block"
     currentActivity = elementId
@@ -43,6 +52,10 @@ document.getElementById("cancelMakeAccountEn").addEventListener("click", (event)
     displayElement("signInEn")
 })
 
+document.getElementById("cancelMakeAccountDe").addEventListener("click", (event) => {
+    displayElement("signInDe")
+})
+
 document.getElementById("logOutEs").addEventListener("click", (event) => {
     displayElement("signInEs")
 })
@@ -54,6 +67,19 @@ document.getElementById("logOutFromAdminEs").addEventListener("click", (event) =
 
 document.getElementById("logOutEn").addEventListener("click", (event) => {
     displayElement("signInEn")
+})
+
+document.getElementById("logOutFromAdminEn").addEventListener("click", (event) => {
+    displayElement("signInEn")
+})
+
+
+document.getElementById("logOutDe").addEventListener("click", (event) => {
+    displayElement("signInDe")
+})
+
+document.getElementById("logOutFromAdminDe").addEventListener("click", (event) => {
+    displayElement("signInDe")
 })
 
 document.getElementById("confirmMailSubmitEs").addEventListener("click", (event) => {
@@ -116,6 +142,39 @@ document.getElementById("confirmMailSubmitEn").addEventListener("click", (event)
     }
 })
 
+
+document.getElementById("confirmMailSubmitDe").addEventListener("click", (event) => {
+    event.preventDefault()
+    let verCode = event.target.parentNode.children[2].value
+    // mail is already declared as global
+
+    if(verCode!=""){
+        data = ["correo",mail,"verif_number",verCode]
+        let dataToRequest = ""
+        for ( let i = 0; i < data.length; i = i+2) {
+            dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
+            if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+        }
+        request = URL+"confirmMail"+"/?"+dataToRequest
+        
+        console.log(request)
+        
+        fetch(request).then((response) => response.json()).then(serializedResponse => {
+            console.log(serializedResponse["new_status"])
+            newStatus = serializedResponse["new_status"]
+            if (newStatus == "verified") {
+                displayElement("signInDe")
+            }
+            if (newStatus == "not_verified") {
+                event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 1;"
+                setTimeout(() => { event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 0;" }, 4000)
+            }
+        })
+    }
+})
+
+
+
 // Events that show Sign Up Widget
 document.getElementById("makeAccountEs").addEventListener("click", (event) => {
     displayElement("signUpEs")
@@ -123,6 +182,10 @@ document.getElementById("makeAccountEs").addEventListener("click", (event) => {
 
 document.getElementById("makeAccountEn").addEventListener("click", (event) => {
     displayElement("signUpEn")
+})
+
+document.getElementById("makeAccountDe").addEventListener("click", (event) => {
+    displayElement("signUpDe")
 })
 
 // Events that show Confirm Email Widget
@@ -182,6 +245,37 @@ document.getElementById("submitMakeAccountDataEn").addEventListener("click", (ev
                     fetch(request).then((response) => response.json()).then(serializedResponse => {
                         console.log(Object.keys(serializedResponse))
                         displayElement("mailConfirmEn")             
+                    })
+                }   
+            }
+        }
+    }
+})
+
+document.getElementById("submitMakeAccountDataDe").addEventListener("click", (event) => {
+    event.preventDefault()
+
+    mail = event.target.parentNode.children[1].value
+    let password = event.target.parentNode.children[2].value
+    let confirmPassword = event.target.parentNode.children[3].value
+
+    if(mail!=""){
+        if(password!=""){
+            if(confirmPassword!=""){
+                if (password==confirmPassword){
+                    data = ["correo",mail,"password",password]
+                    let dataToRequest = ""
+                    for ( let i = 0; i < data.length; i = i+2) {
+                        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
+                        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+                    }
+                    request = URL+"signUpRequest"+"/?"+dataToRequest
+
+                    console.log(request)
+
+                    fetch(request).then((response) => response.json()).then(serializedResponse => {
+                        console.log(Object.keys(serializedResponse))
+                        displayElement("mailConfirmDe")             
                     })
                 }   
             }
@@ -292,7 +386,12 @@ document.getElementById("loginSubmitEn").addEventListener("click", (event) => {
         console.log(Object.keys(serializedResponse))
         let answer = Object.keys(serializedResponse)
         if (answer == "ok") {
-            displayElement("dashboardEn")
+            if (serializedResponse["ok"] == "admin") {
+                displayElement("adminDashboardEn")
+            }
+            else{
+                displayElement("dashboardEn")
+            }
         }
         else {
             event.target.parentNode.children[3].style = "opacity: 1;color: white;text-align: center;"
@@ -300,6 +399,109 @@ document.getElementById("loginSubmitEn").addEventListener("click", (event) => {
         }
     })
 })
+
+document.getElementById("delUserEn").addEventListener("click", (event) => {
+    event.preventDefault()
+    let userToDelete = event.target.parentNode.children[2].value
+    data = ["target",userToDelete]
+    let dataToRequest = ""
+    for ( let i = 0; i < data.length; i = i+2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
+        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    }
+    request = URL+"deleteUser"+"/?"+dataToRequest
+    fetch(request).then((response) => response.json()).then(serializedResponse => {
+        console.log(Object.keys(serializedResponse))
+    })
+})
+
+document.getElementById("makeAdminEn").addEventListener("click", (event) => {
+    event.preventDefault()
+    let userToDelete = event.target.parentNode.children[4].value
+    data = ["target",userToDelete]
+    let dataToRequest = ""
+    for ( let i = 0; i < data.length; i = i+2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
+        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    }
+    request = URL+"elevateUser"+"/?"+dataToRequest
+    fetch(request).then((response) => response.json()).then(serializedResponse => {
+        console.log(Object.keys(serializedResponse))
+    })
+})
+
+
+
+document.getElementById("loginSubmitDe").addEventListener("click", (event) => {
+    event.preventDefault()
+
+    console.log("here")
+
+    let mail = event.target.parentNode.children[0].value
+    let password = event.target.parentNode.children[1].value
+
+    // userInfo/?correo=eduardolopez@correo.com&password=password&confirmpassword=password
+    data = ["correo",mail,"password",password]
+
+    // console.log(postData(URL, "loginRequest", data, "first_word"))
+
+    let dataToRequest = ""
+    for ( let i = 0; i < data.length; i = i+2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
+        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    }
+
+    request = URL+"loginRequest"+"/?"+dataToRequest
+    console.log(request)
+
+    fetch(request).then((response) => response.json()).then(serializedResponse => {
+        console.log(Object.keys(serializedResponse))
+        let answer = Object.keys(serializedResponse)
+        if (answer == "ok") {
+            if (serializedResponse["ok"] == "admin") {
+                displayElement("adminDashboardDe")
+            }
+            else{
+                displayElement("dashboardDe")
+            }
+        }
+        else {
+            event.target.parentNode.children[3].style = "opacity: 1;color: white;text-align: center;"
+            setTimeout(() => { event.target.parentNode.children[3].style = "opacity: 0" }, 4000)
+        }
+    })
+})
+
+document.getElementById("delUserDe").addEventListener("click", (event) => {
+    event.preventDefault()
+    let userToDelete = event.target.parentNode.children[2].value
+    data = ["target",userToDelete]
+    let dataToRequest = ""
+    for ( let i = 0; i < data.length; i = i+2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
+        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    }
+    request = URL+"deleteUser"+"/?"+dataToRequest
+    fetch(request).then((response) => response.json()).then(serializedResponse => {
+        console.log(Object.keys(serializedResponse))
+    })
+})
+
+document.getElementById("makeAdminDe").addEventListener("click", (event) => {
+    event.preventDefault()
+    let userToDelete = event.target.parentNode.children[4].value
+    data = ["target",userToDelete]
+    let dataToRequest = ""
+    for ( let i = 0; i < data.length; i = i+2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
+        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    }
+    request = URL+"elevateUser"+"/?"+dataToRequest
+    fetch(request).then((response) => response.json()).then(serializedResponse => {
+        console.log(Object.keys(serializedResponse))
+    })
+})
+
 
 // function postData (url, route, data, returnType) {
 //     // Function assumes data is a flat list of pairs

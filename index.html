@@ -14,6 +14,7 @@
     <select name="lang" id="langSelector">
       <option value="Es">Español</option>
       <option value="En">English</option>
+      <option value="De">Deutsch</option>
     </select>
   </div>
 
@@ -41,8 +42,8 @@
     <div style="display:none;" id="signInEn">
       <h1>Log In</h1>
       <form id="userMailAndPasswordEn">
-        <input type="text" name="loginUsername" placeholder="Email" required="required"/>
-        <input type="password" name="loginPassword" placeholder="Password" required="required"/>
+        <input type="text" name="loginUsername" placeholder="E-mail" required="required"/>
+        <input type="password" name="loginPassword" placeholder="Passwort" required="required"/>
         <br>
         <p id="signInErrorEn" style="opacity: 0;color: white;text-align: center;">
           Error in username or password.
@@ -53,6 +54,23 @@
       <br>
       <br>
       <p style="color:white; text-align: center;" id="makeAccountEn">Create account</p>
+    </div>
+
+    <div style="display:none;" id="signInDe">
+      <h1>Einloggen</h1>
+      <form id="userMailAndPasswordDe">
+        <input type="text" name="loginUsername" placeholder="E-mail" required="required"/>
+        <input type="password" name="loginPassword" placeholder="Passwort" required="required"/>
+        <br>
+        <p id="signInErrorDe" style="opacity: 0;color: white;text-align: center;">
+          Fehler im Benutzernamen oder Passwort.
+        </p>
+        <button id="loginSubmitDe" class="btn btn-primary btn-block btn-large" style="text-align: center;">Annehmen</button>
+      </form>
+      <br>
+      <br>
+      <br>
+      <p style="color:white; text-align: center;" id="makeAccountDe">Konto anlegen</p>
     </div>
 
     <!--          Sign Up         -->
@@ -78,10 +96,24 @@
       <p id="passmatchEn" style="opacity: 0">
         Passwords don't match!
       </p>
-      <button id="submitMakeAccountDataEn" class="btn btn-primary btn-block btn-large">Acxcept</button>
+      <button id="submitMakeAccountDataEn" class="btn btn-primary btn-block btn-large">Accept</button>
       <br>
       <br>
       <p style="color:white; text-align: center;" id="cancelMakeAccountEn">Sign In</p>
+    </form>
+
+    <form style="display:none;" id="signUpDe">
+      <h1>Konto anlegen</h1>
+      <input type="text" name="u" placeholder="E-mail" required="required"/>
+      <input type="password" name="p" placeholder="Passwort" required="required"/>
+      <input type="password" name="p" placeholder="Passwort bestätigen" required="required" />
+      <p id="passmatchDe" style="opacity: 0">
+        Passwörter sind nicht gleich!
+      </p>
+      <button id="submitMakeAccountDataDe" class="btn btn-primary btn-block btn-large">Annehmen</button>
+      <br>
+      <br>
+      <p style="color:white; text-align: center;" id="cancelMakeAccountDe">Einloggen</p>
     </form>
 
     <!--          Confirm Email Code         -->
@@ -96,9 +128,17 @@
     <div style="display:none;" id="mailConfirmEn">
       <h1>Create Account</h1>
       <p style="color:white ;text-align: center;">We've sent a code to verify your email.</p>
-      <input type="text" name="c" placeholder="Código de confirmación" required="required" />
+      <input type="text" name="c" placeholder="Verification code" required="required" />
       <button id="confirmMailSubmitEn" class="btn btn-primary btn-block btn-large">Accept</button>
       <p style="color:white ;text-align: center;opacity: 0;" id="warningVerifEn">Code not validated. Please try again.</p>
+    </div>
+
+    <div style="display:none;" id="mailConfirmDe">
+      <h1>Konto anlegen</h1>
+      <p style="color:white ;text-align: center;">Wir haben einen Verifizierungßchlüssel gesendet, um Ihre E-Mail zu bestätigen.</p>
+      <input type="text" name="c" placeholder="Verifizierungßchlüssel" required="required" />
+      <button id="confirmMailSubmitDe" class="btn btn-primary btn-block btn-large">Annehmen</button>
+      <p style="color:white ;text-align: center;opacity: 0;" id="warningVerifDe">Schlüssel war nicht validiert. Bitte versuche es erneut.</p>
     </div>
 
   </div>
@@ -122,9 +162,6 @@
       <button id="makeAdminEs" class="btn btn-primary">Elevar</button>
       <button id="logOutFromAdminEs" class="btn btn-primary" style="display: block; margin: 0 auto;">Cerrar sesión</button>
     </div>
-
-    
-
   </div>
 
   <div id="dashboardEn" style="display: none;">
@@ -132,6 +169,34 @@
     <button id="logOutEn" class="btn btn-primary" style="display: block; margin: 0 auto;">Log out</button>
   </div>
 
+  <div id="adminDashboardEn" style="display: none;">
+    <div style="text-align: center; margin: 0 auto;">
+      <h1 style="color: white; text-align: center;">Admin console</h1>
+      <p style="color:white ;text-align: center;" >This user has admin privileges.</p>
+      <input type="text" name="d" id="delUserTextEn" style="max-width: 300px;" placeholder="User to delete" required="required"/>
+      <button id="delUserEn" class="btn btn-primary">Delete</button>
+      <input type="text" name="d" id="makeAdminTextEn" style="max-width: 300px;" placeholder="User to make admin" required="required"/>
+      <button id="makeAdminEn" class="btn btn-primary">Elevate</button>
+      <button id="logOutFromAdminEn" class="btn btn-primary" style="display: block; margin: 0 auto;">Log out</button>
+    </div>
+  </div>
+
+  <div id="dashboardDe" style="display: none;">
+    <h1 style="color: white; text-align: center;">HAUPTMENÜ</h1>
+    <button id="logOutDe" class="btn btn-primary" style="display: block; margin: 0 auto;">Ausloggen</button>
+  </div>
+
+  <div id="adminDashboardDe" style="display: none;">
+    <div style="text-align: center; margin: 0 auto;">
+      <h1 style="color: white; text-align: center;">Administratorkonsole</h1>
+      <p style="color:white ;text-align: center;" >Dieser Benutzer hat Administratorrechte</p>
+      <input type="text" name="d" id="delUserTextDe" style="max-width: 300px;" placeholder="Benutzer zu löschen" required="required"/>
+      <button id="delUserDe" class="btn btn-primary">Löschen</button>
+      <input type="text" name="d" id="makeAdminTextDe" style="max-width: 300px;" placeholder="Benützer zu gewähren" required="required"/>
+      <button id="makeAdminDe" class="btn btn-primary">Gewähren</button>
+      <button id="logOutFromAdminDe" class="btn btn-primary" style="display: block; margin: 0 auto;">Ausloggen</button>
+    </div>
+  </div>
 
   <script src="assets/scripting.js"> </script>
 </body>
