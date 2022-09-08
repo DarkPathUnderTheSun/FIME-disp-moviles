@@ -88,6 +88,20 @@ async def confirm(request):
             return json({"fail":"password mismatch"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
 
 
+@app.route('/deleteUser')
+async def confirm(request):
+    target = str(request.args.get("target"))
+    try:
+        query = "DELETE FROM users WHERE correos = '"+target+"';"
+        queryResult = sqlQuery(query)
+        print(queryResult)
+        text = "deleted user "+target
+        return json({"ok":text},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
+    except:
+        print("ERROR ERROR ERROR")
+        return json({"fail":"some error occurred"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
+
+
 @app.route('/signUpRequest')
 async def confirm(request):
     verifCode=random.randint(100000,999999)

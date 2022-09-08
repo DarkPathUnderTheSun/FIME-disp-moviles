@@ -24,6 +24,7 @@ function displayElement(elementId) {
     document.getElementById("signUpEn").style.display = "none"
     document.getElementById("mailConfirmEn").style.display = "none"
     document.getElementById("dashboardEn").style.display = "none"
+    document.getElementById("adminDashboardEs").style.display = "none"
     console.log(elementId)
     document.getElementById(elementId).style.display = "block"
     currentActivity = elementId
@@ -45,6 +46,11 @@ document.getElementById("cancelMakeAccountEn").addEventListener("click", (event)
 document.getElementById("logOutEs").addEventListener("click", (event) => {
     displayElement("signInEs")
 })
+
+document.getElementById("logOutFromAdminEs").addEventListener("click", (event) => {
+    displayElement("signInEs")
+})
+
 
 document.getElementById("logOutEn").addEventListener("click", (event) => {
     displayElement("signInEn")
@@ -214,12 +220,33 @@ document.getElementById("loginSubmitEs").addEventListener("click", (event) => {
         console.log(Object.keys(serializedResponse))
         let answer = Object.keys(serializedResponse)
         if (answer == "ok") {
-            displayElement("dashboardEs")
+            if (serializedResponse["ok"] == "admin") {
+                displayElement("adminDashboardEs")
+            }
+            else{
+                displayElement("dashboardEs")
+            }
         }
         else {
             event.target.parentNode.children[3].style = "opacity: 1;color: white;text-align: center;"
             setTimeout(() => { event.target.parentNode.children[3].style = "opacity: 0" }, 4000)
         }
+    })
+})
+
+
+document.getElementById("delUserEs").addEventListener("click", (event) => {
+    event.preventDefault()
+    let userToDelete = event.target.parentNode.children[2].value
+    data = ["target",userToDelete]
+    let dataToRequest = ""
+    for ( let i = 0; i < data.length; i = i+2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
+        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    }
+    request = URL+"deleteUser"+"/?"+dataToRequest
+    fetch(request).then((response) => response.json()).then(serializedResponse => {
+        console.log(Object.keys(serializedResponse))
     })
 })
 
