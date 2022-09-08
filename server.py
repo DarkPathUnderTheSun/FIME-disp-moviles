@@ -65,9 +65,10 @@ async def confirm(request):
         return json({"fail":"no password specified"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
 
     if abortRequest == 0:
-        query = "SELECT contras FROM users WHERE correos = '"+correo+"' AND status_verif = 'CONFIRMED';"
+        query = "SELECT contras, roles FROM users WHERE correos = '"+correo+"' AND status_verif = 'CONFIRMED';"
         queryResult = sqlQuery(query)
 
+        print(queryResult)
         print("Login request for user "+correo+"...")
 
         if queryResult == []:
@@ -127,6 +128,14 @@ async def confirm(request):
         return json({"new_status":"verified"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
     else:
         return json({"new_status":"not_verified"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
+
+@app.route('/loadChat')
+async def confirm(request):
+    userFrom = request.args.get("sender")
+    userFor = request.args.get("receiver")
+    query = "SELECT message FROM chats WHERE ((sender = '" + userFrom + "' AND receiver = '" + userFor + "') OR (sender = '" + userFor + "' AND receiver = '" + userFrom + "'));"
+    queryResult = sqlQuery(query)
+    print(queryResult)
 
 if __name__ == '__main__':
     app.run(host='172.26.5.244', port=8443, ssl=ssl)
