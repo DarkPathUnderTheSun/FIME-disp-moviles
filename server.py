@@ -90,6 +90,7 @@ async def confirm(request):
 
 @app.route('/deleteUser')
 async def confirm(request):
+    print("ATTENTION: USER DELETION ATTEMPT!")
     target = str(request.args.get("target"))
     try:
         query = "DELETE FROM users WHERE correos = '"+target+"';"
