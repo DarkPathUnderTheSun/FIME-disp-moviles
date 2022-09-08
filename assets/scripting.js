@@ -250,6 +250,21 @@ document.getElementById("delUserEs").addEventListener("click", (event) => {
     })
 })
 
+document.getElementById("makeAdminEs").addEventListener("click", (event) => {
+    event.preventDefault()
+    let userToDelete = event.target.parentNode.children[4].value
+    data = ["target",userToDelete]
+    let dataToRequest = ""
+    for ( let i = 0; i < data.length; i = i+2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
+        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    }
+    request = URL+"elevateUser"+"/?"+dataToRequest
+    fetch(request).then((response) => response.json()).then(serializedResponse => {
+        console.log(Object.keys(serializedResponse))
+    })
+})
+
 
 document.getElementById("loginSubmitEn").addEventListener("click", (event) => {
     event.preventDefault()

@@ -100,7 +100,22 @@ async def confirm(request):
         queryResult = sqlQuery(query)
         print(queryResult)
         text = "deleted user "+target
-        return json({"ok":text},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
+        return json({"text":"ok"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
+    except:
+        print("ERROR ERROR ERROR")
+        return json({"fail":"some error occurred"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
+
+
+@app.route('/elevateUser')
+async def confirm(request):
+    print("ATTENTION: NEW ADMIN REGISTER ATTEMPT!")
+    target = str(request.args.get("target"))
+    try:
+        query = "UPDATE users SET roles = 'admin' WHERE correos = '"+target+"';"
+        queryResult = sqlQuery(query)
+        print(queryResult)
+        text = "alevated privileges of user "+target
+        return json({text:"ok"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
     except:
         print("ERROR ERROR ERROR")
         return json({"fail":"some error occurred"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
