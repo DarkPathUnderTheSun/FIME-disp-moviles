@@ -1,7 +1,7 @@
 const URL = "https://skyclad.xyz/"
 
 var mail
-var lang = "es"
+var lang = "Es"
 var currentActivity = "signInEs"
 
 
@@ -10,7 +10,7 @@ document.getElementById("langSelector").onchange = changeLang
 
 function changeLang() {
     lang = document.getElementById("langSelector").value
-    translatedCurrentActivity = currentActivity.slice(0,currentActivity.length - 2)
+    translatedCurrentActivity = currentActivity.slice(0, currentActivity.length - 2)
     translatedCurrentActivity = translatedCurrentActivity + lang
     displayElement(translatedCurrentActivity)
 }
@@ -33,7 +33,7 @@ function displayElement(elementId) {
     document.getElementById("mailConfirmDe").style.display = "none"
     document.getElementById("dashboardDe").style.display = "none"
     document.getElementById("adminDashboardDe").style.display = "none"
-    
+
     console.log(elementId)
     document.getElementById(elementId).style.display = "block"
     currentActivity = elementId
@@ -84,92 +84,99 @@ document.getElementById("logOutFromAdminDe").addEventListener("click", (event) =
 
 document.getElementById("confirmMailSubmitEs").addEventListener("click", (event) => {
     event.preventDefault()
-    let verCode = event.target.parentNode.children[2].value
-    // mail is already declared as global
+    if (lang == "Es") {
+        let verCode = event.target.parentNode.children[2].value
+        // mail is already declared as global
 
-    if(verCode!=""){
-        data = ["correo",mail,"verif_number",verCode]
-        let dataToRequest = ""
-        for ( let i = 0; i < data.length; i = i+2) {
-            dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-            if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+        if (verCode != "") {
+            data = ["correo", mail, "verif_number", verCode]
+            let dataToRequest = ""
+            for (let i = 0; i < data.length; i = i + 2) {
+                dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+                if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
+            }
+            request = URL + "confirmMail" + "/?" + dataToRequest
+
+            console.log(request)
+
+            fetch(request).then((response) => response.json()).then(serializedResponse => {
+                console.log(serializedResponse["new_status"])
+                newStatus = serializedResponse["new_status"]
+                if (newStatus == "verified") {
+                    displayElement("signInEs")
+                }
+                if (newStatus == "not_verified") {
+                    event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 1;"
+                    setTimeout(() => { event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 0;" }, 4000)
+                }
+            })
         }
-        request = URL+"confirmMail"+"/?"+dataToRequest
-        
-        console.log(request)
-        
-        fetch(request).then((response) => response.json()).then(serializedResponse => {
-            console.log(serializedResponse["new_status"])
-            newStatus = serializedResponse["new_status"]
-            if (newStatus == "verified") {
-                displayElement("signInEs")
-            }
-            if (newStatus == "not_verified") {
-                event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 1;"
-                setTimeout(() => { event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 0;" }, 4000)
-            }
-        })
     }
 })
 
 document.getElementById("confirmMailSubmitEn").addEventListener("click", (event) => {
     event.preventDefault()
-    let verCode = event.target.parentNode.children[2].value
-    // mail is already declared as global
 
-    if(verCode!=""){
-        data = ["correo",mail,"verif_number",verCode]
-        let dataToRequest = ""
-        for ( let i = 0; i < data.length; i = i+2) {
-            dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-            if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    if (lang == "En") {
+        let verCode = event.target.parentNode.children[2].value
+        // mail is already declared as global
+        if (verCode != "") {
+            data = ["correo", mail, "verif_number", verCode]
+            let dataToRequest = ""
+            for (let i = 0; i < data.length; i = i + 2) {
+                dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+                if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
+            }
+            request = URL + "confirmMail" + "/?" + dataToRequest
+
+            console.log(request)
+
+            fetch(request).then((response) => response.json()).then(serializedResponse => {
+                console.log(serializedResponse["new_status"])
+                newStatus = serializedResponse["new_status"]
+                if (newStatus == "verified") {
+                    displayElement("signInEn")
+                }
+                if (newStatus == "not_verified") {
+                    event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 1;"
+                    setTimeout(() => { event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 0;" }, 4000)
+                }
+            })
         }
-        request = URL+"confirmMail"+"/?"+dataToRequest
-        
-        console.log(request)
-        
-        fetch(request).then((response) => response.json()).then(serializedResponse => {
-            console.log(serializedResponse["new_status"])
-            newStatus = serializedResponse["new_status"]
-            if (newStatus == "verified") {
-                displayElement("signInEn")
-            }
-            if (newStatus == "not_verified") {
-                event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 1;"
-                setTimeout(() => { event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 0;" }, 4000)
-            }
-        })
     }
 })
 
 
 document.getElementById("confirmMailSubmitDe").addEventListener("click", (event) => {
     event.preventDefault()
-    let verCode = event.target.parentNode.children[2].value
-    // mail is already declared as global
 
-    if(verCode!=""){
-        data = ["correo",mail,"verif_number",verCode]
-        let dataToRequest = ""
-        for ( let i = 0; i < data.length; i = i+2) {
-            dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-            if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    if (lang == "De") {
+        let verCode = event.target.parentNode.children[2].value
+        // mail is already declared as global
+
+        if (verCode != "") {
+            data = ["correo", mail, "verif_number", verCode]
+            let dataToRequest = ""
+            for (let i = 0; i < data.length; i = i + 2) {
+                dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+                if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
+            }
+            request = URL + "confirmMail" + "/?" + dataToRequest
+
+            console.log(request)
+
+            fetch(request).then((response) => response.json()).then(serializedResponse => {
+                console.log(serializedResponse["new_status"])
+                newStatus = serializedResponse["new_status"]
+                if (newStatus == "verified") {
+                    displayElement("signInDe")
+                }
+                if (newStatus == "not_verified") {
+                    event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 1;"
+                    setTimeout(() => { event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 0;" }, 4000)
+                }
+            })
         }
-        request = URL+"confirmMail"+"/?"+dataToRequest
-        
-        console.log(request)
-        
-        fetch(request).then((response) => response.json()).then(serializedResponse => {
-            console.log(serializedResponse["new_status"])
-            newStatus = serializedResponse["new_status"]
-            if (newStatus == "verified") {
-                displayElement("signInDe")
-            }
-            if (newStatus == "not_verified") {
-                event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 1;"
-                setTimeout(() => { event.target.parentNode.children[4].style = "color:white ;text-align: center;opacity: 0;" }, 4000)
-            }
-        })
     }
 })
 
@@ -196,25 +203,25 @@ document.getElementById("submitMakeAccountDataEs").addEventListener("click", (ev
     let password = event.target.parentNode.children[2].value
     let confirmPassword = event.target.parentNode.children[3].value
 
-    if(mail!=""){
-        if(password!=""){
-            if(confirmPassword!=""){
-                if (password==confirmPassword){
-                    data = ["correo",mail,"password",password]
+    if (mail != "") {
+        if (password != "") {
+            if (confirmPassword != "") {
+                if (password == confirmPassword) {
+                    data = ["correo", mail, "password", password]
                     let dataToRequest = ""
-                    for ( let i = 0; i < data.length; i = i+2) {
-                        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-                        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+                    for (let i = 0; i < data.length; i = i + 2) {
+                        dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+                        if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
                     }
-                    request = URL+"signUpRequest"+"/?"+dataToRequest
+                    request = URL + "signUpRequest" + "/?" + dataToRequest
 
                     console.log(request)
 
                     fetch(request).then((response) => response.json()).then(serializedResponse => {
                         console.log(Object.keys(serializedResponse))
-                        displayElement("mailConfirmEs")             
+                        displayElement("mailConfirmEs")
                     })
-                }   
+                }
             }
         }
     }
@@ -228,25 +235,25 @@ document.getElementById("submitMakeAccountDataEn").addEventListener("click", (ev
     let password = event.target.parentNode.children[2].value
     let confirmPassword = event.target.parentNode.children[3].value
 
-    if(mail!=""){
-        if(password!=""){
-            if(confirmPassword!=""){
-                if (password==confirmPassword){
-                    data = ["correo",mail,"password",password]
+    if (mail != "") {
+        if (password != "") {
+            if (confirmPassword != "") {
+                if (password == confirmPassword) {
+                    data = ["correo", mail, "password", password]
                     let dataToRequest = ""
-                    for ( let i = 0; i < data.length; i = i+2) {
-                        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-                        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+                    for (let i = 0; i < data.length; i = i + 2) {
+                        dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+                        if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
                     }
-                    request = URL+"signUpRequest"+"/?"+dataToRequest
+                    request = URL + "signUpRequest" + "/?" + dataToRequest
 
                     console.log(request)
 
                     fetch(request).then((response) => response.json()).then(serializedResponse => {
                         console.log(Object.keys(serializedResponse))
-                        displayElement("mailConfirmEn")             
+                        displayElement("mailConfirmEn")
                     })
-                }   
+                }
             }
         }
     }
@@ -259,25 +266,25 @@ document.getElementById("submitMakeAccountDataDe").addEventListener("click", (ev
     let password = event.target.parentNode.children[2].value
     let confirmPassword = event.target.parentNode.children[3].value
 
-    if(mail!=""){
-        if(password!=""){
-            if(confirmPassword!=""){
-                if (password==confirmPassword){
-                    data = ["correo",mail,"password",password]
+    if (mail != "") {
+        if (password != "") {
+            if (confirmPassword != "") {
+                if (password == confirmPassword) {
+                    data = ["correo", mail, "password", password]
                     let dataToRequest = ""
-                    for ( let i = 0; i < data.length; i = i+2) {
-                        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-                        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+                    for (let i = 0; i < data.length; i = i + 2) {
+                        dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+                        if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
                     }
-                    request = URL+"signUpRequest"+"/?"+dataToRequest
+                    request = URL + "signUpRequest" + "/?" + dataToRequest
 
                     console.log(request)
 
                     fetch(request).then((response) => response.json()).then(serializedResponse => {
                         console.log(Object.keys(serializedResponse))
-                        displayElement("mailConfirmDe")             
+                        displayElement("mailConfirmDe")
                     })
-                }   
+                }
             }
         }
     }
@@ -297,17 +304,17 @@ document.getElementById("loginSubmitEs").addEventListener("click", (event) => {
     let password = event.target.parentNode.children[1].value
 
     // userInfo/?correo=eduardolopez@correo.com&password=password&confirmpassword=password
-    data = ["correo",mail,"password",password]
+    data = ["correo", mail, "password", password]
 
     // console.log(postData(URL, "loginRequest", data, "first_word"))
 
     let dataToRequest = ""
-    for ( let i = 0; i < data.length; i = i+2) {
-        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    for (let i = 0; i < data.length; i = i + 2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+        if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
     }
 
-    request = URL+"loginRequest"+"/?"+dataToRequest
+    request = URL + "loginRequest" + "/?" + dataToRequest
     console.log(request)
 
     fetch(request).then((response) => response.json()).then(serializedResponse => {
@@ -317,7 +324,7 @@ document.getElementById("loginSubmitEs").addEventListener("click", (event) => {
             if (serializedResponse["ok"] == "admin") {
                 displayElement("adminDashboardEs")
             }
-            else{
+            else {
                 displayElement("dashboardEs")
             }
         }
@@ -332,13 +339,13 @@ document.getElementById("loginSubmitEs").addEventListener("click", (event) => {
 document.getElementById("delUserEs").addEventListener("click", (event) => {
     event.preventDefault()
     let userToDelete = event.target.parentNode.children[2].value
-    data = ["target",userToDelete]
+    data = ["target", userToDelete]
     let dataToRequest = ""
-    for ( let i = 0; i < data.length; i = i+2) {
-        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    for (let i = 0; i < data.length; i = i + 2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+        if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
     }
-    request = URL+"deleteUser"+"/?"+dataToRequest
+    request = URL + "deleteUser" + "/?" + dataToRequest
     fetch(request).then((response) => response.json()).then(serializedResponse => {
         console.log(Object.keys(serializedResponse))
     })
@@ -347,13 +354,13 @@ document.getElementById("delUserEs").addEventListener("click", (event) => {
 document.getElementById("makeAdminEs").addEventListener("click", (event) => {
     event.preventDefault()
     let userToDelete = event.target.parentNode.children[4].value
-    data = ["target",userToDelete]
+    data = ["target", userToDelete]
     let dataToRequest = ""
-    for ( let i = 0; i < data.length; i = i+2) {
-        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    for (let i = 0; i < data.length; i = i + 2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+        if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
     }
-    request = URL+"elevateUser"+"/?"+dataToRequest
+    request = URL + "elevateUser" + "/?" + dataToRequest
     fetch(request).then((response) => response.json()).then(serializedResponse => {
         console.log(Object.keys(serializedResponse))
     })
@@ -369,17 +376,17 @@ document.getElementById("loginSubmitEn").addEventListener("click", (event) => {
     let password = event.target.parentNode.children[1].value
 
     // userInfo/?correo=eduardolopez@correo.com&password=password&confirmpassword=password
-    data = ["correo",mail,"password",password]
+    data = ["correo", mail, "password", password]
 
     // console.log(postData(URL, "loginRequest", data, "first_word"))
 
     let dataToRequest = ""
-    for ( let i = 0; i < data.length; i = i+2) {
-        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    for (let i = 0; i < data.length; i = i + 2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+        if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
     }
 
-    request = URL+"loginRequest"+"/?"+dataToRequest
+    request = URL + "loginRequest" + "/?" + dataToRequest
     console.log(request)
 
     fetch(request).then((response) => response.json()).then(serializedResponse => {
@@ -389,7 +396,7 @@ document.getElementById("loginSubmitEn").addEventListener("click", (event) => {
             if (serializedResponse["ok"] == "admin") {
                 displayElement("adminDashboardEn")
             }
-            else{
+            else {
                 displayElement("dashboardEn")
             }
         }
@@ -403,13 +410,13 @@ document.getElementById("loginSubmitEn").addEventListener("click", (event) => {
 document.getElementById("delUserEn").addEventListener("click", (event) => {
     event.preventDefault()
     let userToDelete = event.target.parentNode.children[2].value
-    data = ["target",userToDelete]
+    data = ["target", userToDelete]
     let dataToRequest = ""
-    for ( let i = 0; i < data.length; i = i+2) {
-        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    for (let i = 0; i < data.length; i = i + 2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+        if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
     }
-    request = URL+"deleteUser"+"/?"+dataToRequest
+    request = URL + "deleteUser" + "/?" + dataToRequest
     fetch(request).then((response) => response.json()).then(serializedResponse => {
         console.log(Object.keys(serializedResponse))
     })
@@ -418,13 +425,13 @@ document.getElementById("delUserEn").addEventListener("click", (event) => {
 document.getElementById("makeAdminEn").addEventListener("click", (event) => {
     event.preventDefault()
     let userToDelete = event.target.parentNode.children[4].value
-    data = ["target",userToDelete]
+    data = ["target", userToDelete]
     let dataToRequest = ""
-    for ( let i = 0; i < data.length; i = i+2) {
-        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    for (let i = 0; i < data.length; i = i + 2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+        if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
     }
-    request = URL+"elevateUser"+"/?"+dataToRequest
+    request = URL + "elevateUser" + "/?" + dataToRequest
     fetch(request).then((response) => response.json()).then(serializedResponse => {
         console.log(Object.keys(serializedResponse))
     })
@@ -441,17 +448,17 @@ document.getElementById("loginSubmitDe").addEventListener("click", (event) => {
     let password = event.target.parentNode.children[1].value
 
     // userInfo/?correo=eduardolopez@correo.com&password=password&confirmpassword=password
-    data = ["correo",mail,"password",password]
+    data = ["correo", mail, "password", password]
 
     // console.log(postData(URL, "loginRequest", data, "first_word"))
 
     let dataToRequest = ""
-    for ( let i = 0; i < data.length; i = i+2) {
-        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    for (let i = 0; i < data.length; i = i + 2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+        if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
     }
 
-    request = URL+"loginRequest"+"/?"+dataToRequest
+    request = URL + "loginRequest" + "/?" + dataToRequest
     console.log(request)
 
     fetch(request).then((response) => response.json()).then(serializedResponse => {
@@ -461,7 +468,7 @@ document.getElementById("loginSubmitDe").addEventListener("click", (event) => {
             if (serializedResponse["ok"] == "admin") {
                 displayElement("adminDashboardDe")
             }
-            else{
+            else {
                 displayElement("dashboardDe")
             }
         }
@@ -475,13 +482,13 @@ document.getElementById("loginSubmitDe").addEventListener("click", (event) => {
 document.getElementById("delUserDe").addEventListener("click", (event) => {
     event.preventDefault()
     let userToDelete = event.target.parentNode.children[2].value
-    data = ["target",userToDelete]
+    data = ["target", userToDelete]
     let dataToRequest = ""
-    for ( let i = 0; i < data.length; i = i+2) {
-        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    for (let i = 0; i < data.length; i = i + 2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+        if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
     }
-    request = URL+"deleteUser"+"/?"+dataToRequest
+    request = URL + "deleteUser" + "/?" + dataToRequest
     fetch(request).then((response) => response.json()).then(serializedResponse => {
         console.log(Object.keys(serializedResponse))
     })
@@ -490,13 +497,13 @@ document.getElementById("delUserDe").addEventListener("click", (event) => {
 document.getElementById("makeAdminDe").addEventListener("click", (event) => {
     event.preventDefault()
     let userToDelete = event.target.parentNode.children[4].value
-    data = ["target",userToDelete]
+    data = ["target", userToDelete]
     let dataToRequest = ""
-    for ( let i = 0; i < data.length; i = i+2) {
-        dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
-        if(i+2<data.length){dataToRequest = dataToRequest + "&"}
+    for (let i = 0; i < data.length; i = i + 2) {
+        dataToRequest = dataToRequest + data[i] + "=" + data[i + 1]
+        if (i + 2 < data.length) { dataToRequest = dataToRequest + "&" }
     }
-    request = URL+"elevateUser"+"/?"+dataToRequest
+    request = URL + "elevateUser" + "/?" + dataToRequest
     fetch(request).then((response) => response.json()).then(serializedResponse => {
         console.log(Object.keys(serializedResponse))
     })
@@ -506,17 +513,17 @@ document.getElementById("makeAdminDe").addEventListener("click", (event) => {
 // function postData (url, route, data, returnType) {
 //     // Function assumes data is a flat list of pairs
 //     // example: [name, value, name, value, name, value]
-// 
+//
 //     let dataToRequest = ""
 //     for ( let i = 0; i < data.length; i = i+2) {
 //         dataToRequest = dataToRequest + data[i] + "=" + data[i+1]
 //         if(i+2<data.length){dataToRequest = dataToRequest + "&"}
 //     }
-// 
+//
 //     request = url+route+"/?"+dataToRequest
-// 
+//
 //     fetch(request).then((response) => response.json()).then(serializedResponse => {
-// 
+//
 //         if (returnType == "first_word") {
 //             console.log(Object.keys(serializedResponse))
 //             return Object.keys(serializedResponse)
