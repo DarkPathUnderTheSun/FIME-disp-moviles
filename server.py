@@ -40,6 +40,9 @@ def sqlQuery(query):
     if query[0:6] == "UPDATE":
         conn.commit()
 
+    if query[0:6] == "DELETE":
+        conn.commit()
+
     queryResult = cursorObject.fetchall()
     conn.close()
     return queryResult
