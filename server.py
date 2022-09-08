@@ -98,7 +98,8 @@ async def confirm(request):
     try:
         query = "DELETE FROM users WHERE correos = '"+target+"';"
         queryResult = sqlQuery(query)
-        print(queryResult)
+        if queryResult == []:
+            print("SUCCESS...")
         text = "deleted user "+target
         return json({text:"ok"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
     except:
@@ -113,7 +114,8 @@ async def confirm(request):
     try:
         query = "UPDATE users SET roles = 'admin' WHERE correos = '"+target+"';"
         queryResult = sqlQuery(query)
-        print(queryResult)
+        if queryResult == []:
+            print("SUCCESS...")
         text = "alevated privileges of user "+target
         return json({text:"ok"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
     except:
