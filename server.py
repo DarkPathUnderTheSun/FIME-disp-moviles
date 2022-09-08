@@ -76,8 +76,13 @@ async def confirm(request):
             return json({"fail":"user does not exist"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
 
         if password == queryResult[0][0]:
-            print("passwords match.")
-            return json({"ok":"password match"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
+            if queryResult[0][1] == "admin":
+                print("admin access detected!")
+                print("passwords match.")
+                return json({"ok":"admin"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
+            else:
+                print("passwords match.")
+                return json({"ok":"password match"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
         else:
             print("password mismatch.")
             return json({"fail":"password mismatch"},headers={"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "*"})
